@@ -7,8 +7,8 @@ from typing import Any, List, Tuple, Union
 import cv2
 import numpy as np
 import torch
-from PIL import Image
 from matplotlib import pyplot as plt
+from PIL import Image
 from tqdm import tqdm
 
 from ultralytics.data.augment import Format
@@ -16,11 +16,15 @@ from ultralytics.data.dataset import YOLODataset
 from ultralytics.data.utils import check_det_dataset
 from ultralytics.models.yolo.model import YOLO
 from ultralytics.utils import LOGGER, USER_CONFIG_DIR, IterableSimpleNamespace, checks
+
 from .utils import get_sim_index_schema, get_table_schema, plot_query_result, prompt_sql_query, sanitize_batch
 
 
 class ExplorerDataset(YOLODataset):
+    """Extends YOLODataset for advanced data exploration and manipulation in model training workflows."""
+
     def __init__(self, *args, data: dict = None, **kwargs) -> None:
+        """Initializes the ExplorerDataset with the provided data arguments, extending the YOLODataset class."""
         super().__init__(*args, data=data, **kwargs)
 
     def load_image(self, i: int) -> Union[Tuple[np.ndarray, Tuple[int, int], Tuple[int, int]], Tuple[None, None, None]]:
@@ -52,18 +56,21 @@ class ExplorerDataset(YOLODataset):
 
 
 class Explorer:
+    """Utility class for image embedding, table creation, and similarity querying using LanceDB and YOLO models."""
+
     def __init__(
         self,
         data: Union[str, Path] = "coco128.yaml",
         model: str = "yolov8n.pt",
         uri: str = USER_CONFIG_DIR / "explorer",
     ) -> None:
+        """Initializes the Explorer class with dataset path, model, and URI for database connection."""
         # Note duckdb==0.10.0 bug https://github.com/ultralytics/ultralytics/pull/8181
         checks.check_requirements(["lancedb>=0.4.3", "duckdb<=0.9.2"])
         import lancedb
 
         self.connection = lancedb.connect(uri)
-        self.table_name = Path(data).name.lower() + "_" + model.lower()
+        self.table_name = f"{Path(data).name.lower()}_{model.lower()}"
         self.sim_idx_base_name = (
             f"{self.table_name}_sim_idx".lower()
         )  # Use this name and append thres and top_k to reuse the table
@@ -267,10 +274,7 @@ class Explorer:
             similar = exp.get_similar(img='https://ultralytics.com/images/zidane.jpg')
             ```
         """
-        assert return_type in {
-            "pandas",
-            "arrow",
-        }, f"Return type should be either `pandas` or `arrow`, but got {return_type}"
+        assert return_type in {"pandas", "arrow"}, f"Return type should be `pandas` or `arrow`, but got {return_type}"
         img = self._check_imgs_or_idxs(img, idx)
         similar = self.query(img, limit=limit)
 
@@ -418,6 +422,7 @@ class Explorer:
     def _check_imgs_or_idxs(
         self, img: Union[str, np.ndarray, List[str], List[np.ndarray], None], idx: Union[None, int, List[int]]
     ) -> List[np.ndarray]:
+        """Determines whether to fetch images or indexes based on provided arguments and returns image paths."""
         if img is None and idx is None:
             raise ValueError("Either img or idx must be provided.")
         if img is not None and idx is not None:
