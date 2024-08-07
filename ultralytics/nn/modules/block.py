@@ -1105,27 +1105,27 @@ class PSABlock(nn.Module):
         return x
 
 
-# class PSA(C2):
-#     """
-#     Position-wise Spatial Attention module.
-#
-#     Args:
-#         c1 (int): Number of input channels.
-#         c2 (int): Number of output channels.
-#         e (float): Expansion factor for the intermediate channels. Default is 0.5.
-#
-#     Attributes:
-#         c (int): Number of intermediate channels.
-#         cv1 (Conv): 1x1 convolution layer to reduce the number of input channels to 2*c.
-#         cv2 (Conv): 1x1 convolution layer to reduce the number of output channels to c.
-#         attn (Attention): Attention module for spatial attention.
-#         ffn (nn.Sequential): Feed-forward network module.
-#     """
-#
-#     def __init__(self, c1, c2, n=1, e=0.5):
-#         assert c1 == c2
-#         super().__init__(c1, c2, n=n, e=e)
-#         self.m = nn.Sequential(*(PSABlock(self.c, attn_ratio=0.5, num_heads=self.c // 64) for _ in range(n)))
+class PSA(C2):
+    """
+    Position-wise Spatial Attention module.
+
+    Args:
+        c1 (int): Number of input channels.
+        c2 (int): Number of output channels.
+        e (float): Expansion factor for the intermediate channels. Default is 0.5.
+
+    Attributes:
+        c (int): Number of intermediate channels.
+        cv1 (Conv): 1x1 convolution layer to reduce the number of input channels to 2*c.
+        cv2 (Conv): 1x1 convolution layer to reduce the number of output channels to c.
+        attn (Attention): Attention module for spatial attention.
+        ffn (nn.Sequential): Feed-forward network module.
+    """
+
+    def __init__(self, c1, c2, n=1, e=0.5):
+        assert c1 == c2
+        super().__init__(c1, c2, n=n, e=e)
+        self.m = nn.Sequential(*(PSABlock(self.c, attn_ratio=0.5, num_heads=self.c // 64) for _ in range(n)))
 
 
 class C2PSA(C2f):
@@ -1175,48 +1175,48 @@ class C3PSA(C3):
         self.m = nn.Sequential(*(PSABlock(c_, attn_ratio=0.5, num_heads=c_ // 64) for _ in range(n)))
 
 
-class PSA(nn.Module):
-    """
-    Position-wise Spatial Attention module.
-
-    Args:
-        c1 (int): Number of input channels.
-        c2 (int): Number of output channels.
-        e (float): Expansion factor for the intermediate channels. Default is 0.5.
-
-    Attributes:
-        c (int): Number of intermediate channels.
-        cv1 (Conv): 1x1 convolution layer to reduce the number of input channels to 2*c.
-        cv2 (Conv): 1x1 convolution layer to reduce the number of output channels to c.
-        attn (Attention): Attention module for spatial attention.
-        ffn (nn.Sequential): Feed-forward network module.
-    """
-
-    def __init__(self, c1, c2, e=0.5):
-        """Initializes convolution layers, attention module, and feed-forward network with channel reduction."""
-        super().__init__()
-        assert c1 == c2
-        self.c = int(c1 * e)
-        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
-        self.cv2 = Conv(2 * self.c, c1, 1)
-
-        self.attn = Attention(self.c, attn_ratio=0.5, num_heads=self.c // 64)
-        self.ffn = nn.Sequential(Conv(self.c, self.c * 2, 1), Conv(self.c * 2, self.c, 1, act=False))
-
-    def forward(self, x):
-        """
-        Forward pass of the PSA module.
-
-        Args:
-            x (torch.Tensor): Input tensor.
-
-        Returns:
-            (torch.Tensor): Output tensor.
-        """
-        a, b = self.cv1(x).split((self.c, self.c), dim=1)
-        b = b + self.attn(b)
-        b = b + self.ffn(b)
-        return self.cv2(torch.cat((a, b), 1))
+# class PSA(nn.Module):
+#     """
+#     Position-wise Spatial Attention module.
+#
+#     Args:
+#         c1 (int): Number of input channels.
+#         c2 (int): Number of output channels.
+#         e (float): Expansion factor for the intermediate channels. Default is 0.5.
+#
+#     Attributes:
+#         c (int): Number of intermediate channels.
+#         cv1 (Conv): 1x1 convolution layer to reduce the number of input channels to 2*c.
+#         cv2 (Conv): 1x1 convolution layer to reduce the number of output channels to c.
+#         attn (Attention): Attention module for spatial attention.
+#         ffn (nn.Sequential): Feed-forward network module.
+#     """
+#
+#     def __init__(self, c1, c2, e=0.5):
+#         """Initializes convolution layers, attention module, and feed-forward network with channel reduction."""
+#         super().__init__()
+#         assert c1 == c2
+#         self.c = int(c1 * e)
+#         self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+#         self.cv2 = Conv(2 * self.c, c1, 1)
+#
+#         self.attn = Attention(self.c, attn_ratio=0.5, num_heads=self.c // 64)
+#         self.ffn = nn.Sequential(Conv(self.c, self.c * 2, 1), Conv(self.c * 2, self.c, 1, act=False))
+#
+#     def forward(self, x):
+#         """
+#         Forward pass of the PSA module.
+#
+#         Args:
+#             x (torch.Tensor): Input tensor.
+#
+#         Returns:
+#             (torch.Tensor): Output tensor.
+#         """
+#         a, b = self.cv1(x).split((self.c, self.c), dim=1)
+#         b = b + self.attn(b)
+#         b = b + self.ffn(b)
+#         return self.cv2(torch.cat((a, b), 1))
 
 
 class SCDown(nn.Module):
