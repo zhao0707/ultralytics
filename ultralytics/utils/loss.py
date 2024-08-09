@@ -735,7 +735,6 @@ class E2EDetectLoss:
     def __call__(self, preds, batch):
         """Calculate the sum of the loss for box, cls and dfl multiplied by batch size."""
         o2m = batch.get("o2m", None)
-        print(o2m)
         if o2m is not None:
             o2o = max(1.0 - o2m, 0)
         else:

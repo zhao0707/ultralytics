@@ -363,7 +363,9 @@ class BaseTrainer:
                 LOGGER.info(self.progress_string())
                 pbar = TQDM(enumerate(self.train_loader), total=nb)
             self.tloss = None
+            o2m = max(1 - epoch / self.epochs, 0) * (1.0 - 0.1) + 0.1
             for i, batch in pbar:
+                batch["o2m"] = o2m
                 self.run_callbacks("on_train_batch_start")
                 # Warmup
                 ni = i + nb * epoch
