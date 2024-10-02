@@ -755,4 +755,4 @@ class E2EDetectLoss:
         self.o2o = max(1.0 - self.o2m, 0)
 
     def decay(self, x):
-        return max(1 - x / self.one2one.hyp.epochs, 0) * (1.0 - self.one2one.hyp.o2m) + self.one2one.hyp.o2m
+        return max(1 - x / (self.one2one.hyp.epochs - 1), 0) * (1.0 - self.one2one.hyp.o2m) + self.one2one.hyp.o2m
