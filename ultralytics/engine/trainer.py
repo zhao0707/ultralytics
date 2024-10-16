@@ -426,7 +426,8 @@ class BaseTrainer:
 
                 self.run_callbacks("on_train_batch_end")
 
-            self.model.criterion.update()
+            if hasattr(self.model.criterion, "update"):
+                self.model.criterion.update()
             self.lr = {f"lr/pg{ir}": x["lr"] for ir, x in enumerate(self.optimizer.param_groups)}  # for loggers
             self.run_callbacks("on_train_epoch_end")
             if RANK in {-1, 0}:
