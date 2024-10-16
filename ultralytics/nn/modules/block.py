@@ -746,7 +746,7 @@ class C2f2(nn.Module):
         return self.cv2(torch.cat(y, 1))
 
 
-class C3k2(C2f2):
+class C3k2(C2f):
     """Faster Implementation of CSP Bottleneck with 2 convolutions."""
 
     def __init__(self, c1, c2, n=1, c3k=False, e=0.5, g=1, shortcut=True):
