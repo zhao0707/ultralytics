@@ -191,7 +191,7 @@ class BaseValidator:
                 self.plot_predictions(batch, preds, batch_i)
 
             self.run_callbacks("on_val_batch_end")
-        if self.training:
+        if self.training and hasattr(model.criterion, "update"):
             model.criterion.update()
         stats = self.get_stats()
         self.check_stats(stats)
