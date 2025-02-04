@@ -55,6 +55,7 @@ Create [embeddings](https://www.ultralytics.com/glossary/embeddings) for your da
 - [African-wildlife](detect/african-wildlife.md): A dataset featuring images of African wildlife, including buffalo, elephant, rhino, and zebras.
 - [Signature](detect/signature.md): A dataset featuring images of various documents with annotated signatures, supporting document verification and fraud detection research.
 - [Medical-pills](detect/medical-pills.md): A dataset containing labeled images of medical-pills, designed to aid in tasks like pharmaceutical quality control, sorting, and ensuring compliance with industry standards.
+- [Dental-radiography](detect/dental-radiography.md): A collection of annotated dental X-ray images, tailored for use in detecting implants, identifying cavities, diagnosing impacted teeth, and supporting dental treatment workflows.
 
 ## [Instance Segmentation](segment/index.md)
 
