@@ -17,9 +17,8 @@ test: test/images # test images (relative to 'path') 73 images
 # Classes
 names:
   0: implant
-  1: fillings
+  1: cavity
   2: impacted
-  3: cavity
 
 # Download script/URL (optional)
 download: https://github.com/ultralytics/assets/releases/download/v0.0.0/dental-radiography.zip
