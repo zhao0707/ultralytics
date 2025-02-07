@@ -1,12 +1,12 @@
 ---
 comments: true
-description: Explore the dental radiography dataset with X-ray images. Essential for training AI models to detect implants, fillings, impacted teeth, and cavities.
+description: Explore the dental radiography dataset with X-ray images. Essential for training AI models to detect implants, impacted teeth, and cavities.
 keywords: dental radiography dataset, dental X-rays, dental imaging, implant detection, cavity detection, AI in dentistry, computer vision, dental health, early diagnosis
 ---
 
 # Dental Radiography Dataset
 
-The dental radiography dataset consists of dental X-ray images, providing detailed information for detecting dental conditions such as implants, fillings, impacted teeth, and cavities. This dataset is vital for [training](https://www.ultralytics.com/glossary/training-data) computer vision models, enhancing the accuracy of automated dental diagnostics and early treatment planning.
+The dental radiography dataset consists of dental X-ray images, providing detailed information for detecting dental conditions such as implants, impacted teeth, and cavities. This dataset is vital for [training](https://www.ultralytics.com/glossary/training-data) computer vision models, enhancing the accuracy of automated dental diagnostics and early treatment planning.
 
 ## Dataset Structure
 
@@ -22,7 +22,6 @@ This dataset enables applications in dental diagnostics, including:
 
 - **Automated Implant Detection:** Identify dental implants with precision.
 - **Cavity Detection:** Enhance early diagnosis of cavities.
-- **Fillings Identification:** Detect the presence and condition of dental fillings.
 - **Impacted Teeth Recognition:** Assist in diagnosing impacted teeth for surgical planning.
 
 ## Dataset YAML
@@ -83,7 +82,7 @@ To [train](../../models/yolo11.md) a YOLO11n model on the dental radiography dat
 
 ## Sample Images and Annotations
 
-The dataset includes diverse dental X-ray images, annotated for implants, fillings, impacted teeth, and cavities.
+The dataset includes diverse dental X-ray images, annotated for implants, impacted teeth, and cavities.
 
 ![Dental radiography dataset sample image](https://github.com/ultralytics/docs/releases/download/0/dental-radiography-dataset-sample-image.avif)
 
@@ -91,13 +90,15 @@ The dataset includes diverse dental X-ray images, annotated for implants, fillin
 
 ## Citations and Acknowledgments
 
-We’d like to thank the authors of the [dataset](https://www.kaggle.com/datasets/imtkaggleteam/dental-radiography) for creating this amazing resource, which can be used for medical research. The original dataset wasn’t in YOLO format, the Ultralytics team has converted it and added it as an official dataset for use with the [Ultralytics](https://github.com/ultralytics/ultralytics) [Python package](https://pypi.org/project/ultralytics/).
+We extend our gratitude to the authors of the [dataset](https://www.kaggle.com/datasets/imtkaggleteam/dental-radiography) for their valuable contribution to medical research. As the original dataset was not in YOLO format, the Ultralytics team has adapted and integrated it as an official dataset, making it readily available for use with the [Ultralytics](https://github.com/ultralytics/ultralytics) [Python package](https://pypi.org/project/ultralytics/).
+
+The dataset has been released under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.  
 
 ## FAQ
 
 ### What classes are included in the dental radiography dataset?
 
-The dataset includes four key dental conditions, implants, fillings, impacted teeth, and cavities. Each class helps improve model performance in detecting specific dental issues.
+The dataset includes four key dental conditions, implants, impacted teeth, and cavities. Each class helps improve model performance in detecting specific dental issues.
 
 ### How is the dataset structured for model training?
 
