@@ -6,7 +6,9 @@ from pathlib import Path
 import cv2
 from sahi import AutoDetectionModel
 from sahi.predict import get_sliced_prediction
-from sahi.utils.ultralytics import download_yolo11n_model
+from sahi.utils.ultralytics import (download_yolo11n_model, download_yolo11n_obb_model,
+                                    download_yolo11n_seg_model, download_yolov8n_seg_model,
+                                    download_yolov8n_model)
 
 from ultralytics.utils.files import increment_path
 from ultralytics.utils.plotting import Annotator, colors
