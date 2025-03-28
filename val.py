@@ -36,8 +36,8 @@ if __name__ == '__main__':
         plots=True,
         half=True,
         # conf=0.001,
-        save_json=True,
-        iou=0.7,
+        # save_json=True,
+        # iou=0.7,
 
         project='runs/val-1',
         name='WiderPerson-v8n-CAFM-CIoU',
