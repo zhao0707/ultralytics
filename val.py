@@ -35,7 +35,7 @@ if __name__ == '__main__':
         seed=143,
         plots=True,
         half=True,
-        conf=0.001,
+        # conf=0.001,
         save_json=True,
         iou=0.7,
 
